@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        input-customer:
+          binder: kafka               # ou binder: custom-binder      caso descomente da linha 18 para baixo
+          destination: customer-topic
+          group: ${spring.application.name}
+
+        input-product:
+          binder: kafka
+          destination: product-topic
+          group: ${spring.application.name}
+
+#      binders:
+#        custom-binder:
+#          type: kafka
+#          environment:
+#            spring:
+#              cloud:
+#                stream:
+#                  kafka:
+#                    binder:
+#                      brokers: localhost:9092
+#                      autoAddPartitions: true

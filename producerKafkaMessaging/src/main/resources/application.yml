@@ -1,0 +1,29 @@
+server:
+  port: 8081
+
+spring:
+  cloud:
+    stream:
+      #      kafka:     É possível usar a tipagem padrão do proprio stream aqui (kafka ou rabbit) e excluir tudo da lina 19 para baixo
+      #        binder:
+      #          brokers: localhost:9092
+      bindings:
+        output-customer:
+          binder: custom-binder             # ou binder: kafka      ou binder: rabbit
+          destination: customer-topic
+
+        output-product:
+          binder: custom-binder
+          destination: product-topic
+
+      binders:
+        custom-binder:
+          type: kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    binder:
+                      brokers: localhost:9092
+                      autoAddPartitions: true
